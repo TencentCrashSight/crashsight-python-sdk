@@ -197,6 +197,6 @@ except CrashSightAPIError as e:
 | `getMinuteCrashData` | 响应慢（>30s），建议 `CrashSightClient(timeout=120)` |
 | `getNetworkDevices` | 偶发响应慢，建议 `timeout=60` |
 | 移动端专用 | `getNetworkDevices`、`getCrashDeviceInfo`、`getDeviceUserInfo` 等仅支持 `platformId=1/2` |
-| App 级鉴权 | `getStackCrashStat`、`getCrashDeviceStat`、`getStackDeviceInfo`、`getCrashDeviceInfoByExpUid` 需 `appSecret/X-token`，HMAC 用户鉴权不适用 |
+| 带 `platformId` 路由的接口 | `getStackCrashStat`、`getCrashDeviceStat`、`getStackDeviceInfo`、`getCrashDeviceInfoByExpUid` 走标准 HMAC 用户鉴权；`platformId` 需按实际平台传入，且 `getCrashDeviceStat` / `getCrashDeviceInfoByExpUid` 请求体中需带 `appId` |
 
 ---

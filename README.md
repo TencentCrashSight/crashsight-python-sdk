@@ -547,15 +547,19 @@ result = client.get_device_user_info(
 
 ---
 
-### 需要应用级鉴权的接口
+### 带 `platformId` 路由的 4 个接口
 
-> ⚠️ 以下 4 个接口使用 `appSecret/appId/X-token` 鉴权，**不支持**标准 `userSecret/localUserId` 鉴权。
-> 需在 CrashSight 项目设置中获取应用密钥，并自行在请求头中设置 `X-token`。
+以下 4 个接口按普通用户级 HMAC 鉴权调用：
 
 - `get_stack_crash_stat` — 堆栈关键字崩溃统计
 - `get_crash_device_stat` — deviceId 对应崩溃列表
 - `get_stack_device_info` — 堆栈关键字对应机型列表
 - `get_crash_device_info_by_exp_uid` — expUid 对应机型列表
+
+使用时请注意：
+
+- 路由中的 `platformId` 需要按实际平台传入，不是固定值
+- `get_crash_device_stat` 与 `get_crash_device_info_by_exp_uid` 的请求体中需显式带上 `appId`
 
 ---
 

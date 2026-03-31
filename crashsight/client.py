@@ -827,11 +827,6 @@ class CrashSightClient:
     ) -> Any:
         """根据堆栈关键字获取崩溃统计。
 
-        .. warning::
-            此接口使用应用级鉴权（``appSecret``/``appId``/``X-token``），
-            不支持标准用户级鉴权（``userSecret``/``localUserId``）。
-            需要在 CrashSight 项目设置中获取应用级密钥。
-
         Args:
             key_name: 堆栈关键字，支持 ``*`` 通配符。
             start_time: 格式 ``YYYY-MM-DD HH:MM:SS``。
@@ -1002,6 +997,7 @@ class CrashSightClient:
 
     def get_crash_device_stat(
         self,
+        app_id: str,
         platform: Union[Platform, int],
         device_ids: list[str] | str,
         start_time: str,
@@ -1010,11 +1006,8 @@ class CrashSightClient:
     ) -> Any:
         """根据 deviceId 获取崩溃列表。
 
-        .. warning::
-            此接口使用应用级鉴权（``appSecret``/``appId``/``X-token``），
-            不支持标准用户级鉴权。
-
         Args:
+            app_id: 项目 ID。
             device_ids: 设备 ID（单个字符串或列表）。
             start_time: 格式 ``YYYY-MM-DD HH:MM:SS``。
             end_time: 格式 ``YYYY-MM-DD HH:MM:SS``。
@@ -1025,6 +1018,7 @@ class CrashSightClient:
             "requestid": self._fsn(),
             "stime": start_time,
             "etime": end_time,
+            "appId": app_id,
             "filters": {"deviceId": ids},
             "limit": limit,
             "type": "pretty",
@@ -1099,10 +1093,6 @@ class CrashSightClient:
     ) -> Any:
         """根据堆栈关键字获取机型列表。
 
-        .. warning::
-            此接口使用应用级鉴权（``appSecret``/``appId``/``X-token``），
-            不支持标准用户级鉴权。
-
         Args:
             key_name: 堆栈关键字，支持 ``*`` 通配符。
             start_time: 格式 ``YYYY-MM-DD HH:MM:SS``。
@@ -1121,6 +1111,7 @@ class CrashSightClient:
 
     def get_crash_device_info_by_exp_uid(
         self,
+        app_id: str,
         platform: Union[Platform, int],
         exp_uids: list[str] | str,
         start_time: str,
@@ -1129,11 +1120,8 @@ class CrashSightClient:
     ) -> Any:
         """根据 expUid 获取机型列表（移动端）。
 
-        .. warning::
-            此接口使用应用级鉴权（``appSecret``/``appId``/``X-token``），
-            不支持标准用户级鉴权。
-
         Args:
+            app_id: 项目 ID。
             exp_uids: expUid（单个字符串或列表）。
             start_time: 格式 ``YYYY-MM-DD HH:MM:SS``。
             end_time: 格式 ``YYYY-MM-DD HH:MM:SS``。
@@ -1144,6 +1132,7 @@ class CrashSightClient:
             "requestid": self._fsn(),
             "stime": start_time,
             "etime": end_time,
+            "appId": app_id,
             "filters": {"expUid": uids},
             "limit": limit,
             "type": "pretty",
