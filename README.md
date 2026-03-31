@@ -561,6 +561,32 @@ result = client.get_device_user_info(
 - 路由中的 `platformId` 需要按实际平台传入，不是固定值
 - `get_crash_device_stat` 与 `get_crash_device_info_by_exp_uid` 的请求体中需显式带上 `appId`
 
+### `get_crash_device_stat` — deviceId 对应崩溃列表
+
+```python
+result = client.get_crash_device_stat(
+    app_id="i1110543085",
+    platform=Platform.ANDROID,
+    device_ids=["test_device"],   # 或单个字符串
+    start_time="2026-03-23 00:00:00",
+    end_time="2026-03-29 23:59:59",
+    limit=100,
+)
+```
+
+### `get_crash_device_info_by_exp_uid` — expUid 对应机型列表
+
+```python
+result = client.get_crash_device_info_by_exp_uid(
+    app_id="i1110543085",
+    platform=Platform.IOS,
+    exp_uids=["test_uid"],   # 或单个字符串
+    start_time="2026-03-23 00:00:00",
+    end_time="2026-03-29 23:59:59",
+    limit=100,
+)
+```
+
 ---
 
 ## 附件管理
