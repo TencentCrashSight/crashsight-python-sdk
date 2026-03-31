@@ -13,7 +13,7 @@ pip install "git+https://github.com/TencentCrashSight/crashsight-python-sdk.git"
 指定版本安装：
 
 ```bash
-pip install "git+https://github.com/TencentCrashSight/crashsight-python-sdk.git@v2.0.0"
+pip install "git+https://github.com/TencentCrashSight/crashsight-python-sdk.git@v1.0.0"
 ```
 
 ### 本地源码安装
