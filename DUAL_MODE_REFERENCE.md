@@ -114,20 +114,19 @@ result = client.get_trend(
 issue = post("/uniform/openapi/issueInfo", {
     "appId": "c5f3c55bbe",  "platformId": "10",  # 注意：字符串
     "issueId": "4f158c6cedf7f687add95a876b626e40",
-    "fsn": "any-unique-id",
 })
 
 last = post("/uniform/openapi/lastCrashInfo", {
     "appId": "c5f3c55bbe",  "platformId": "10",
     "issues": "4f158c6cedf7f687add95a876b626e40",
-    "crashDataType": "undefined",  "fsn": "any-unique-id",
+    "crashDataType": "undefined",
 })
 crash_id   = last["crashId"]
 crash_hash = ":".join(crash_id[i:i+2] for i in range(0, len(crash_id), 2))
 
 doc = post("/uniform/openapi/crashDoc", {
     "appId": "c5f3c55bbe",  "platformId": "10",
-    "crashHash": crash_hash,  "fsn": "any-unique-id",
+    "crashHash": crash_hash,
 })
 
 # ── SDK ─────────────────────────────────────────────────────
@@ -154,7 +153,7 @@ print(doc["crashMap"].get("keyStack"))
 result = get(
     f"/uniform/openapi/noteList"
     f"/appId/c5f3c55bbe/platformId/10/issueId/4f158c6cedf7f687..."
-    f"?crashDataType=undefined&fsn=some-uuid"
+    f"?crashDataType=undefined"
 )
 
 # ── SDK ─────────────────────────────────────────────────────

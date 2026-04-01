@@ -471,7 +471,6 @@ class CrashSightClient:
             "mergeMultipleDatesWithInaccurateResult": merge_dates,
             "versionList": version_list or [version],
             "countryList": country_list or [],
-            "fsn": self._fsn(),
         })
 
     def get_issue_info(
@@ -485,7 +484,6 @@ class CrashSightClient:
             "appId": app_id,
             "platformId": self._to_platform_int(platform),
             "issueId": issue_id,
-            "fsn": self._fsn(),
         })
 
     def get_issue_notes(
@@ -498,7 +496,7 @@ class CrashSightClient:
         """获取 issue 备注列表。"""
         pid = self._to_platform_int(platform)
         path = f"/uniform/openapi/noteList/appId/{app_id}/platformId/{pid}/issueId/{issue_id}"
-        return self._get(path, {"crashDataType": crash_data_type, "fsn": self._fsn()})
+        return self._get(path, {"crashDataType": crash_data_type})
 
     def get_issue_trend(
         self,
@@ -672,7 +670,6 @@ class CrashSightClient:
             "issueId": issue_id,
             "rows": rows,
             "version": version,
-            "fsn": self._fsn(),
         })
 
     def get_last_crash(
@@ -687,7 +684,6 @@ class CrashSightClient:
             "platformId": str(self._to_platform_int(platform)),
             "issues": issue_id,
             "crashDataType": "undefined",
-            "fsn": self._fsn(),
         })
 
     def get_crash_detail(
@@ -701,7 +697,6 @@ class CrashSightClient:
             "appId": app_id,
             "platformId": str(self._to_platform_int(platform)),
             "crashHash": crash_hash,
-            "fsn": self._fsn(),
         })
 
     def get_crash_doc(
@@ -725,7 +720,6 @@ class CrashSightClient:
             "crashHash": crash_hash,
             "logtype": logtype,
             "needQueryCustomKv": need_custom_kv,
-            "fsn": self._fsn(),
         })
 
     def get_anr_message(
@@ -742,7 +736,6 @@ class CrashSightClient:
             "appId": app_id,
             "platformId": str(self._to_platform_int(platform)),
             "crashHash": crash_hash,
-            "fsn": self._fsn(),
         })
 
     def query_crash_list(
@@ -772,7 +765,6 @@ class CrashSightClient:
             "version": version,
             "startDate": start_date,
             "endDate": end_date,
-            "fsn": self._fsn(),
         }
         if model:
             body["model"] = model
@@ -811,7 +803,6 @@ class CrashSightClient:
             "endHour": end_hour,
             "type": self._to_crash_type(crash_type),
             "version": version,
-            "fsn": self._fsn(),
             "dataType": "realTimeTrendData",
             "vm": int(vm),
         })
@@ -921,7 +912,6 @@ class CrashSightClient:
             "endDate": end_date,
             "type": self._to_crash_type(crash_type),
             "version": version,
-            "fsn": self._fsn(),
         })
 
     def get_most_report_users(
@@ -1211,7 +1201,6 @@ class CrashSightClient:
             "appId": app_id,
             "pid": str(self._to_platform_int(platform)),
             "types": types,
-            "fsn": self._fsn(),
         })
 
     def get_version_date_list(
@@ -1223,5 +1212,4 @@ class CrashSightClient:
         return self._post("/uniform/openapi/getVersionDateList", {
             "appId": app_id,
             "platformId": self._to_platform_int(platform),
-            "fsn": self._fsn(),
         })
