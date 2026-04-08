@@ -1132,50 +1132,31 @@ class CrashSightClient:
     #  附件管理
     # ═══════════════════════════════════════════════════════════
 
-    def fetch_sdk_attachments(
-        self,
-        app_id: str,
-        crash_id_list: list[str],
-        attachment_filename_list: list[str] | None = None,
-    ) -> Any:
-        """下载客户端 SDK 直传附件（CustomizedAttachFile.zip / CustomizedLogFile.log / SDK_LOG）。
-
-        Args:
-            crash_id_list: crashId 列表。
-            attachment_filename_list: 需要的附件文件名列表，默认 ``["SDK_LOG"]``。
-
-        当该 crash 无 SDK 上传附件时返回空列表。
-        """
-        try:
-            return self._post("/uniform/openapi/fetchSdkUploadedAttachments", {
-                "appId": app_id,
-                "crashIdList": crash_id_list,
-                "attachmentFilenameList": attachment_filename_list or ["SDK_LOG"],
-            })
-        except CrashSightAPIError as e:
-            if "attachmentFilenameList is empty" in str(e):
-                return []
-            raise
-
     def fetch_crash_attachments(
         self,
         app_id: str,
         crash_id_list: list[str],
         attachment_filename_list: list[str] | None = None,
     ) -> Any:
-        """批量下载非 SDK 上传附件（extraMessage.txt 等）。
+        """下载崩溃附件（SDK 直传附件 + 服务端附件统一接口）。
+
+        支持的附件类型包括 SDK_LOG、CustomizedAttachFile.zip、
+        CustomizedLogFile.log、extraMessage.txt 等。
 
         Args:
+            app_id: 项目 ID。
             crash_id_list: crashId 列表。
-            attachment_filename_list: 需要的附件文件名列表，默认 ``["extraMessage.txt"]``。
+            attachment_filename_list: 需要的附件文件名列表，默认 ``["SDK_LOG"]``。
 
-        当无附件时返回空列表。
+        Returns:
+            ``{"crashIdAndAttachmentsList": [{"crashId": str, "attachments": [...]}]}``
+            当无附件时返回空列表。
         """
         try:
-            return self._post("/uniform/openapi/fetchMultipleCrashAttachments", {
+            return self._post("/uniform/openapi/fetchCrashAttachments", {
                 "appId": app_id,
                 "crashIdList": crash_id_list,
-                "attachmentFilenameList": attachment_filename_list or ["extraMessage.txt"],
+                "attachmentFilenameList": attachment_filename_list or ["SDK_LOG"],
             })
         except CrashSightAPIError as e:
             if "attachmentFilenameList is empty" in str(e):

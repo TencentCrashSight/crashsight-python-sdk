@@ -591,10 +591,12 @@ result = client.get_crash_device_info_by_exp_uid(
 
 ## 附件管理
 
-### `fetch_sdk_attachments` — SDK 直传附件
+### `fetch_crash_attachments` — 下载崩溃附件
+
+统一接口，支持 SDK 直传附件和服务端附件。
 
 ```python
-result = client.fetch_sdk_attachments(
+result = client.fetch_crash_attachments(
     app_id="c5f3c55bbe",
     crash_id_list=["a683c7563e19495dbb00263efdd0662c"],
     attachment_filename_list=["SDK_LOG"],   # 默认 SDK_LOG
@@ -606,17 +608,7 @@ for item in result.get("crashIdAndAttachmentsList", []):
         print(att.get("downloadUrl"))   # 下载链接
 ```
 
----
-
-### `fetch_crash_attachments` — 服务端附件
-
-```python
-result = client.fetch_crash_attachments(
-    app_id="c5f3c55bbe",
-    crash_id_list=["a683c7563e19495dbb00263efdd0662c"],
-    attachment_filename_list=["extraMessage.txt"],  # 默认 extraMessage.txt
-)
-```
+支持的附件类型：`SDK_LOG`、`CustomizedAttachFile.zip`、`CustomizedLogFile.log`、`extraMessage.txt` 等。
 
 ---
 
