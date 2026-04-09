@@ -74,6 +74,7 @@ IssueStatus.REOPENED     # 3  重新打开
 - [问题管理](#问题管理)
 - [异常分析](#异常分析)
 - [用户与设备](#用户与设备)
+- [OOM 分析](#oom-分析)
 - [附件管理](#附件管理)
 - [选择器与元数据](#选择器与元数据)
 
@@ -585,6 +586,31 @@ result = client.get_crash_device_info_by_exp_uid(
     end_time="2026-03-29 23:59:59",
     limit=100,
 )
+```
+
+---
+
+## OOM 分析
+
+### `query_oom_list` — 查询 OOM / 非 OOM 崩溃列表
+
+```python
+result = client.query_oom_list(
+    app_id="i1110543085",
+    search_condition_group={
+        "conditions": [{
+            "queryType": "TERM",
+            "term": "ONLY_IS_OOM",        # 仅 OOM
+            # "term": "ONLY_NOT_IS_OOM",  # 非 OOM
+            "field": "oomStatus"
+        }]
+    },
+    limit=10,
+)
+# 返回 {"total": int, "items": [...], "aggList": [...], "modelProductNameMap": {...}}
+
+for item in result.get("items", []):
+    print(f"{item['model']} | OOM={item['isOom']} | mem={item.get('predictedPssBytes')}")
 ```
 
 ---

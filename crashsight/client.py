@@ -1129,6 +1129,44 @@ class CrashSightClient:
         })
 
     # ═══════════════════════════════════════════════════════════
+    #  OOM 分析
+    # ═══════════════════════════════════════════════════════════
+
+    def query_oom_list(
+        self,
+        app_id: str,
+        search_condition_group: dict[str, Any],
+        limit: int = 10,
+    ) -> Any:
+        """查询 OOM / 非 OOM 崩溃列表。
+
+        Args:
+            app_id: 项目 ID。
+            search_condition_group: 搜索条件，示例::
+
+                {
+                    "conditions": [{
+                        "queryType": "TERM",
+                        "term": "ONLY_IS_OOM",       # 仅 OOM
+                        # "term": "ONLY_NOT_IS_OOM",  # 非 OOM
+                        "field": "oomStatus"
+                    }]
+                }
+
+            limit: 返回条数，默认 10。
+
+        Returns:
+            ``{"total": int, "items": [...], "aggList": [...], "modelProductNameMap": {...}}``
+        """
+        return self._post("/uniform/openapi/queryOomList", {
+            "appId": app_id,
+            "limit": limit,
+            "search": {
+                "searchConditionGroup": search_condition_group,
+            },
+        })
+
+    # ═══════════════════════════════════════════════════════════
     #  附件管理
     # ═══════════════════════════════════════════════════════════
 
