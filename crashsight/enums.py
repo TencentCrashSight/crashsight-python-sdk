@@ -26,10 +26,9 @@ class VmType(IntEnum):
 
 class IssueStatus(IntEnum):
     """问题状态。"""
-    UNPROCESSED = 0
-    PROCESSING = 1
-    PROCESSED = 2
-    REOPENED = 3
+    UNPROCESSED = 0   # 未处理
+    PROCESSED = 1     # 已处理
+    PROCESSING = 2    # 处理中
 
 
 class Region(str, Enum):

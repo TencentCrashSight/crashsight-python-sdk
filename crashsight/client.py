@@ -541,7 +541,7 @@ class CrashSightClient:
 
         Args:
             issue_ids: 问题 ID（多个用逗号分隔）。
-            status: 目标状态。
+            status: 目标状态（0=未处理, 1=已处理, 2=处理中）。
             processors: 处理人 ID。
             note: 备注。
             operator_user_id: 操作人 userId。

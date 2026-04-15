@@ -61,9 +61,8 @@ VmType.REAL_DEVICE # 1  真机
 VmType.EMULATOR    # 2  模拟器
 
 IssueStatus.UNPROCESSED  # 0  未处理
-IssueStatus.PROCESSING   # 1  处理中
-IssueStatus.PROCESSED    # 2  已处理
-IssueStatus.REOPENED     # 3  重新打开
+IssueStatus.PROCESSED    # 1  已处理
+IssueStatus.PROCESSING   # 2  处理中
 ```
 
 ---
